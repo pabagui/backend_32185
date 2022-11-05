@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafío 4</title>
+</head>
+<body>
+    <h1>😃Hola servidor Express para el desafío 4: ingresa productos</h1>
+    <form action="http://localhost:8080/api/productos" enctype="application/x-www-form-urlencoded" method="post">
+        <label for="title">Producto:</label><br>
+        <input type="text" id="title" name="title"><br>
+        <br>
+        <label for="price">Precio:</label><br>
+        <input type="text" id="price" name="price"><br>
+        <br>
+        <label for="thumbnail">Foto:</label><br>
+        <input type="text" id="thumbnail" name="thumbnail"><br>
+        <br>
+        <!-- <button>Agregar producto</button> -->
+        <!--<button type="submit">Agregar producto</button> -->
+        <input type="submit" value="Agregar producto ">
+    </form>
+</body>
+</html>
