@@ -45,12 +45,14 @@ function controllerPostProductToCart(id_cart) {
     }
 
     
-function controllerDeleteProductsByIdInCart({ params: { id } }, res) {
-    
+function controllerDeleteProductsByIdInCart(id_cart, id_prod) {
+    const deletedProd = carts.deleteProd(id_cart, id_prod)
+    return deletedProd
 }
 
-function controllerDeleteAllProductsInCart({ params: { id } }, res) {
-    
+function controllerDeleteAllProductsInCart(id_cart) {
+    const emptyCart = carts.deleteAllProducts(id_cart)
+    return emptyCart
 }
 
 

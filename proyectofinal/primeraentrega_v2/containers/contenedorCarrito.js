@@ -30,18 +30,28 @@ class ContenedorCarrito {
     //     }    
     // }
 
-    
+    /*
     async postProducts(id_cart, prods) {
         this.#cart = JSON.parse(await fs.promises.readFile(this.#route, 'utf-8'))
         if(this.#cart.id_cart === id_cart){
             this.#cart.productos.push(prods)
             await fs.promises.writeFile(this.#route, JSON.stringify(this.#cart))
-            return products
+            return prods
         } else {
             return null
         }    
     }
+    */
 
+    async postProducts(id_cart, products) {
+    // async postProducts(id_cart, prods) {
+        this.#cart = JSON.parse(await fs.promises.readFile(this.#route, 'utf-8'))
+        // if(this.#cart.id_cart === id_cart){
+            this.#cart.id_cart === id_cart
+            this.#cart.productos.push(products)
+            await fs.promises.writeFile(this.#route, JSON.stringify(this.#cart))
+            return products  
+    }
 
     async getProds(id_cart) {
         this.#cart = JSON.parse(await fs.promises.readFile(this.#route, 'utf-8'))
@@ -52,19 +62,39 @@ class ContenedorCarrito {
         }    
     }
 
-    // async getById(id) {
-    //     this.#elements = JSON.parse(await fs.promises.readFile(this.#route, 'utf-8'))
-    //     const foundElement = this.#elements.find(element => element.id == id)
-    //     return foundElement         
-    // }
+    async deleteAllProducts(id_cart) {
+        this.#cart = JSON.parse(await fs.promises.readFile(this.#route, 'utf-8'))
+        if(this.#cart.id_cart === id_cart){
+            this.#cart.productos = []
+            await fs.promises.writeFile(this.#route, JSON.stringify(this.#cart))
+            return true
+        } else {
+            return null
+        }    
+    }
 
 
+/*
+    async deleteProd(id_cart, id_prod) {
+        this.#cart = JSON.parse(await fs.promises.readFile(this.#route, 'utf-8'))
+        this.#cart = this.#cart.filter(elements => elements.id != id)
+        await fs.promises.writeFile(this.#route, JSON.stringify(this.#cart))
+    }
+*/
 
-    // async deleteById(id) {
-    //     this.#elements = JSON.parse(await fs.promises.readFile(this.#route, 'utf-8'))
-    //     this.#elements = this.#elements.filter(elements => elements.id != id)
-    //     await fs.promises.writeFile(this.#route, JSON.stringify(this.#elements))
-    // }
+//arreglar post de producto para que funcione
+    async deleteProd(id, id_prod) {
+        this.#cart = JSON.parse(await fs.promises.readFile(this.#route, 'utf-8'))
+        if(this.#cart.id != id) {
+            return null
+            }
+        const foundIndex = this.#cart.productos.findIndex((element) => element.id === id_prod)
+        if(foundIndex === -1){
+            return null
+            }
+        this.#cart.productos.splice(foundIndex, 1)
+        await fs.promises.writeFile(this.#route, JSON.stringify(this.#cart))
+    }
 
 
 

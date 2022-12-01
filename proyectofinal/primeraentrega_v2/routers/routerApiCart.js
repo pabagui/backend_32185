@@ -13,7 +13,8 @@ routerApiCart.post('/', async (req, res) => {
     res.json(newCart)
 });
 
-routerApiCart.post('/:id_cart/products', async(id_cart, res) => {
+//postea producto null en array
+routerApiCart.post('/:id_cart/products', async({params: {id_cart}} , res) => {
     const postedProduct = await controllerPostProductToCart(id_cart)
     res.status(201)
     res.json(postedProduct)
@@ -49,10 +50,10 @@ routerApiCart.delete('/:id_cart/:id_prod', async({params: {id_cart}, res}) => {
 
 
 
-routerApiCart.delete('/:id_cart', async({params: {id_cart}}, res) => {
-    const searchedIndex = await controllerDeleteAllProductsInCart(id_cart)
+routerApiCart.delete('/:id_cart', async({params: {id_cart, id_prod}}, res) => {
+    const deletedProd = await controllerDeleteAllProductsInCart(id_cart, id_prod)
     res.status(200)
-    res.json(searchedIndex)
+    res.json(deletedProd)
 
 });
 
