@@ -5,3 +5,253 @@ use ecommerce
 //crear colecciones
 db.createCollection('productos')
 db.createCollection('mensajes')
+
+
+
+//insertar 10 productos
+db.productos.insertMany([{name: 'mochila', price:580, description: 'azul', thumbnail: 'png2'},{name: 'banano', price:900, description: 'amarillo', thumbnail: 'png3'},{name: 'billetera', price:1280, description: 'naranja', thumbnail: 'png4'},{name: 'alforja', price:1700, description: 'blanco', thumbnail: 'png5'},{name: 'mochila', price:2300, description: 'rosado', thumbnail: 'png6'},{name: 'banano', price:2860, description: 'verde', thumbnail: 'png7'},{name: 'billetera', price:3350, description: 'negro', thumbnail: 'png8'},{name: 'alforja', price:4320, description: 'gris', thumbnail: 'png9'},{name: 'mochila', price:4990, descridescription: 'arcoiris', thumbnail: 'png10'}])
+
+//insertar 10 mensajes
+db.mensajes.insertMany([{name: 'pablo', message: 'hola'},{name: 'alfonso', message: 'como estan'},{name: 'lucia', message: 'bien'},{name: 'tania', message: 'hola a todos'},{name: 'diego', message: 'van a ir hoy?'},{name: 'mia', message: 'adonde'},{name: 'esteban', message: 'donde maria'},{name: 'maria', message: 'si, vengan'},{name: 'sandra', message: 'alla estaremos'},{name: 'pablo', message: 'chau'}])
+
+//mostrar todos los documentos de la coleccion
+ecommerce> show collections
+mensajes
+productos
+
+//mostrar todos los productos de la coleccion
+ecommerce> db.productos.find()
+
+resultado:
+[
+  {
+    _id: ObjectId("639a9fd6f87974c5de9e2d2e"),
+    name: 'alforja',
+    price: 120,
+    description: 'rojo',
+    thumbnail: 'png1'
+  },
+  {
+    _id: ObjectId("639a9fd6f87974c5de9e2d2f"),
+    name: 'mochila',
+    price: 580,
+    description: 'azul',
+    thumbnail: 'png2'
+  },
+  {
+    _id: ObjectId("639a9fd6f87974c5de9e2d30"),
+    name: 'banano',
+    price: 900,
+    description: 'amarillo',
+    thumbnail: 'png3'
+  },
+  {
+    _id: ObjectId("639a9fd6f87974c5de9e2d31"),
+    name: 'billetera',
+    price: 1280,
+    description: 'naranja',
+    thumbnail: 'png4'
+  },
+  {
+    _id: ObjectId("639a9fd6f87974c5de9e2d32"),
+    name: 'alforja',
+    price: 1700,
+    description: 'blanco',
+    thumbnail: 'png5'
+  },
+  {
+    _id: ObjectId("639a9fd6f87974c5de9e2d33"),
+    name: 'mochila',
+    price: 2300,
+    description: 'rosado',
+    thumbnail: 'png6'
+  },
+  {
+    _id: ObjectId("639a9fd6f87974c5de9e2d34"),
+    name: 'banano',
+    price: 2860,
+    description: 'verde',
+    thumbnail: 'png7'
+  },
+  {
+    _id: ObjectId("639a9fd6f87974c5de9e2d35"),
+    name: 'billetera',
+    price: 3350,
+    description: 'negro',
+    thumbnail: 'png8'
+  },
+  {
+    _id: ObjectId("639a9fd6f87974c5de9e2d36"),
+    name: 'alforja',
+    price: 4320,
+    description: 'gris',
+    thumbnail: 'png9'
+  },
+  {
+    _id: ObjectId("639a9fd6f87974c5de9e2d37"),
+    name: 'mochila',
+    price: 4990,
+    description: 'arcoiris',
+    thumbnail: 'png10'
+  }
+]
+
+ecommerce> db.mensajes.find({})
+
+resultado:
+[
+  {
+    _id: ObjectId("639a9828f87974c5de9e2d1a"),
+    name: 'pablo',
+    message: 'hola'
+  },
+  {
+    _id: ObjectId("639a9828f87974c5de9e2d1b"),
+    name: 'alfonso',
+    message: 'como estan'
+  },
+  {
+    _id: ObjectId("639a9828f87974c5de9e2d1c"),
+    name: 'lucia',
+    message: 'bien'
+  },
+  {
+    _id: ObjectId("639a9828f87974c5de9e2d1d"),
+    name: 'tania',
+    message: 'hola a todos'
+  },
+  {
+    _id: ObjectId("639a9828f87974c5de9e2d1e"),
+    name: 'diego',
+    message: 'van a ir hoy?'
+  },
+  {
+    _id: ObjectId("639a9828f87974c5de9e2d1f"),
+    name: 'mia',
+    message: 'adonde'
+  },
+  {
+    _id: ObjectId("639a9828f87974c5de9e2d20"),
+    name: 'esteban',
+    message: 'donde maria'
+  },
+  {
+    _id: ObjectId("639a9828f87974c5de9e2d21"),
+    name: 'maria',
+    message: 'si, vengan'
+  },
+  {
+    _id: ObjectId("639a9828f87974c5de9e2d22"),
+    name: 'sandra',
+    message: 'alla estaremos'
+  },
+  {
+    _id: ObjectId("639a9828f87974c5de9e2d23"),
+    name: 'pablo',
+    message: 'chau'
+  }
+]
+
+
+//contar documentos en la colección
+db.productos.count()
+db.mensajes.count()
+
+
+//insertar 1 producto
+ db.productos.insertOne({name: 'alforja', price:80, description: 'rojo', thumbnail: 'png11'})
+
+
+//productos precio <1000
+ecommerce> db.productos.find({price: {$lt :1000}})
+[
+  {
+    _id: ObjectId("639a9fd6f87974c5de9e2d2e"),
+    name: 'alforja',
+    price: 120,
+    description: 'rojo',
+    thumbnail: 'png1'
+  },
+  {
+    _id: ObjectId("639a9fd6f87974c5de9e2d2f"),
+    name: 'mochila',
+    price: 580,
+    description: 'azul',
+    thumbnail: 'png2'
+  },
+  {
+    _id: ObjectId("639a9fd6f87974c5de9e2d30"),
+    name: 'banano',
+    price: 900,
+    description: 'amarillo',
+    thumbnail: 'png3'
+  },
+  {
+    _id: ObjectId("639aa055f87974c5de9e2d38"),
+    name: 'alforja',
+    price: 80,
+    description: 'rojo',
+    thumbnail: 'png11'
+  }
+]
+
+
+//productos 1000 < precio < 3000
+ecommerce> db.productos.find({$and: [{price: {$gt :1000}}, {price: {$lt :3000}}]})
+[
+  {
+    _id: ObjectId("639a9fd6f87974c5de9e2d31"),
+    name: 'billetera',
+    price: 1280,
+    description: 'naranja',
+    thumbnail: 'png4'
+  },
+  {
+    _id: ObjectId("639a9fd6f87974c5de9e2d32"),
+    name: 'alforja',
+    price: 1700,
+    description: 'blanco',
+    thumbnail: 'png5'
+  },
+  {
+    _id: ObjectId("639a9fd6f87974c5de9e2d33"),
+    name: 'mochila',
+    price: 2300,
+    description: 'rosado',
+    thumbnail: 'png6'
+  },
+  {
+    _id: ObjectId("639a9fd6f87974c5de9e2d34"),
+    name: 'banano',
+    price: 2860,
+    description: 'verde',
+    thumbnail: 'png7'
+  }
+]
+
+//productos precio> 3000
+ecommerce> db.productos.find({price: {$gt :3000}})
+[
+  {
+    _id: ObjectId("639a9fd6f87974c5de9e2d35"),
+    name: 'billetera',
+    price: 3350,
+    description: 'negro',
+    thumbnail: 'png8'
+  },
+  {
+    _id: ObjectId("639a9fd6f87974c5de9e2d36"),
+    name: 'alforja',
+    price: 4320,
+    description: 'gris',
+    thumbnail: 'png9'
+  },
+  {
+    _id: ObjectId("639a9fd6f87974c5de9e2d37"),
+    name: 'mochila',
+    price: 4990,
+    description: 'arcoiris',
+    thumbnail: 'png10'
+  }
+]
+
