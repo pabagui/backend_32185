@@ -1,0 +1,7 @@
+
+//crear base de datos
+use ecommerce
+
+//crear colecciones
+db.createCollection('productos')
+db.createCollection('mensajes')
