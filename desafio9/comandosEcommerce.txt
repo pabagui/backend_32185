@@ -255,3 +255,160 @@ ecommerce> db.productos.find({price: {$gt :3000}})
   }
 ]
 
+
+
+//buscar nombre de tercer producto más barato
+ecommerce> db.productos.find({name: 1,_id: 0}).sort({price: 1}).skip(2).limit(1)
+
+
+
+//insertar stock=100 en todos los productos
+db.productos.updateMany({},{$set:{'stock': 100}},{upsert:false,multi:true})
+
+ecommerce> db.productos.find()
+[
+  {
+    _id: ObjectId("639a9fd6f87974c5de9e2d2e"),
+    name: 'alforja',
+    price: 120,
+    description: 'rojo',
+    thumbnail: 'png1',
+    stock: 100
+  },
+  {
+    _id: ObjectId("639a9fd6f87974c5de9e2d2f"),
+    name: 'mochila',
+    price: 580,
+    description: 'azul',
+    thumbnail: 'png2',
+    stock: 100
+  },
+  {
+    _id: ObjectId("639a9fd6f87974c5de9e2d30"),
+    name: 'banano',
+    price: 900,
+    description: 'amarillo',
+    thumbnail: 'png3',
+    stock: 100
+  },
+  {
+    _id: ObjectId("639a9fd6f87974c5de9e2d31"),
+    name: 'billetera',
+    price: 1280,
+    description: 'naranja',
+    thumbnail: 'png4',
+    stock: 100
+  },
+  {
+    _id: ObjectId("639a9fd6f87974c5de9e2d32"),
+    name: 'alforja',
+    price: 1700,
+    description: 'blanco',
+    thumbnail: 'png5',
+    stock: 100
+  },
+  {
+    _id: ObjectId("639a9fd6f87974c5de9e2d33"),
+    name: 'mochila',
+    price: 2300,
+    description: 'rosado',
+    thumbnail: 'png6',
+    stock: 100
+  },
+  {
+    _id: ObjectId("639a9fd6f87974c5de9e2d34"),
+    name: 'banano',
+    price: 2860,
+    description: 'verde',
+    thumbnail: 'png7',
+    stock: 100
+  },
+  {
+    _id: ObjectId("639a9fd6f87974c5de9e2d35"),
+    name: 'billetera',
+    price: 3350,
+    description: 'negro',
+    thumbnail: 'png8',
+    stock: 100
+  },
+  {
+    _id: ObjectId("639a9fd6f87974c5de9e2d36"),
+    name: 'alforja',
+    price: 4320,
+    description: 'gris',
+    thumbnail: 'png9',
+    stock: 100
+  },
+  {
+    _id: ObjectId("639a9fd6f87974c5de9e2d37"),
+    name: 'mochila',
+    price: 4990,
+    description: 'arcoiris',
+    thumbnail: 'png10',
+    stock: 100
+  },
+  {
+    _id: ObjectId("639aa055f87974c5de9e2d38"),
+    name: 'alforja',
+    price: 80,
+    description: 'rojo',
+    thumbnail: 'png11',
+    stock: 100
+  }
+]
+
+
+//cambiar a stock=0 en productos con precio>4000
+db.productos.updateMany({price: {$gt :4000}},{$set:{'stock': 0}})
+
+[
+  {
+    _id: ObjectId("639a9fd6f87974c5de9e2d36"),
+    name: 'alforja',
+    price: 4320,
+    description: 'gris',
+    thumbnail: 'png9',
+    stock: 0
+  },
+  {
+    _id: ObjectId("639a9fd6f87974c5de9e2d37"),
+    name: 'mochila',
+    price: 4990,
+    description: 'arcoiris',
+    thumbnail: 'png10',
+    stock: 0
+  }
+]
+
+
+//borrar productos con precio < 1000
+ecommerce> db.productos.deleteMany({price:{$lt:1000}})
+{ acknowledged: true, deletedCount: 4 }
+
+
+// crear usuario en base admin que no pueda modificar base ecommerce
+admin> db.createUser({user:'pepe', pwd: 'asd456', roles: [{role: 'read', db: 'ecommerce'}]})
+
+levantar base servidor en terminal agregando --auth
+
+ingresar a base cliente en terminal
+
+PS C:\Users\Usuario> mongosh -u pepe -p
+Enter password: asd456
+
+test> show dbs
+ecommerce  112.00 KiB
+test> use ecommerce
+switched to db ecommerce
+ecommerce> show collections
+mensajes
+productos
+ecommerce> db.productos.find() //muestra productos
+
+ecommerce> db.productos.insertOne({name: 'prueba'}) //trata e insertar producto y no puede:
+MongoServerError: not authorized on ecommerce to execute command { insert: "productos", documents: [ { name: "prueba", _id: ObjectId('639bb4869fca3b31b0c2c2c4') } ], ordered: true, lsid: { id: UUID("cbfa2d76-86b7-4bd3-aeab-433ca0b7315b") }, $db: "ecommerce" 
+}
+ecommerce>
+
+
+
