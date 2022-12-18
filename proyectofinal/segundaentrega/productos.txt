@@ -1,0 +1,1 @@
+[{"name":"mochila","description":"negra","image":"png1","price":60,"id":"91383c9f-1724-4473-a056-207533a03b3f"},{"name":"mochila","description":"negra","image":"png1","price":60,"id":"3e11bd50-26a3-40e6-8a53-158946bf90e7"}]
