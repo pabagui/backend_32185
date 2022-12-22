@@ -50,7 +50,7 @@ app.post('/privado', onlyForAdmins, (req, res) => {
 //conexión a base externa
 import { modeloMaster } from './modeloMaestro.js';
 
-async function controladorPost(req, res) {
+async function controllerPostProducts(req, res) {
     const datosProducto = req.body
     try {
         const producto = await modeloMaster.createProduct(datosProducto)
@@ -60,18 +60,45 @@ async function controladorPost(req, res) {
     }
 }
 
-async function controladorGet(req, res) {
+async function controllerGetProducts(req, res) {
     const productos = await modeloMaster.searchProduct()
     res.json(productos)
 }
 
-app.post('/productos', controladorPost)
-app.get('/productos', controladorGet)
+
+async function agregarProdACarrito(idProd, idCarrito) {
+    const carrito = await contenedorCarrito.obtenerPorId(idCarrito) //definir contenedor
+    const producto = await contenedorProducto.obtenerPorId(idProd) //definir contenedor
+    carrito.productos.push(producto)
+    await contenedorCarrito.reemplazarPorId(carrito)
+    return carrito
+}
+
+
+async function controllerPostNewCart(req, res, next) {
+    try {
+        const { idProd } = req.body
+        const { idCarrito } = req.params
+        const carritoActualizado = await agregarProdACarrito(idProd, idCarrito)
+        res.json(carritoActualizado)
+    } catch (error) {
+        next(error)
+    }
+}
+
+// app.post('/productos', controladorPost)
+// app.get('/productos', controladorGet)
+
+app.post('/api/products', controllerPostProducts)
+app.get('/api/products', controllerGetProducts)
+app.post('/api/shoppingcart', controllerPostNewCart)
+// app.get('/api/shoppingcart', controllerGetProductsInCart)
+
 
 // rutas
 app.use('/', routerRoot)
-app.use('/api/products', routerApiProd)
-app.use('/api/shoppingcart', routerApiCart)
+// app.use('/api/products', routerApiProd)
+// app.use('/api/shoppingcart', routerApiCart)
 
 app.all('*', (req, res) => {
     res.status(404).json(/*no implementada*/)
