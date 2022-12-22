@@ -47,6 +47,27 @@ app.post('/privado', onlyForAdmins, (req, res) => {
 })
 */
 
+//conexión a base externa
+import { modeloMaster } from './modeloMaestro.js';
+
+async function controladorPost(req, res) {
+    const datosProducto = req.body
+    try {
+        const producto = await modeloMaster.createProduct(datosProducto)
+        res.json(producto)
+    } catch (error) {
+        res.json({ errorMsg: error.message })
+    }
+}
+
+async function controladorGet(req, res) {
+    const productos = await modeloMaster.searchProduct()
+    res.json(productos)
+}
+
+app.post('/productos', controladorPost)
+app.get('/productos', controladorGet)
+
 // rutas
 app.use('/', routerRoot)
 app.use('/api/products', routerApiProd)
