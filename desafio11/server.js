@@ -2,8 +2,11 @@
 // const { Server: HttpServer } = require('http')
 // const { Server: IOServer } = require('socket.io')
 import express from 'express'
-// import { Server: HttpServer } from 'http'
-// import { Server: IOServer } from 'socket.io'
+
+
+import { createServer } from 'http'
+// import { IOServer } from 'socket.io'
+import { Server } from 'socket.io'
 
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
@@ -15,7 +18,10 @@ const __dirname = dirname(__filename);
 
 const app = express()
 // const httpServer = new HttpServer(app)
+const httpServer = createServer(app)
 // const io = new IOServer(httpServer)
+const io = new Server(httpServer)
+
 
 // const { engine } = require('express-handlebars')
 import { engine } from 'express-handlebars'
@@ -91,7 +97,84 @@ app.get('/api/productos-test', (req, res) => {
     })
 })
 
-/*
+//conexión a base externa MONGODB / NORMALIZR
+import { modeloMaster } from './modeloMaestro.js';
+
+async function controllerPostMessages(req, res) {
+    const datosMensaje = req.body
+    try {
+        const mensaje = await modeloMaster.createMessage(datosMensaje)
+        res.json(mensaje)
+    } catch (error) {
+        res.json({ errorMsg: error.message })
+    }
+}
+
+async function controllerGetMessages(req, res) {
+    const mensajes = await modeloMaster.searchMessage()
+    res.json(mensajes)
+}
+
+
+
+// app.post('/productos', controladorPost)
+// app.get('/productos', controladorGet)
+
+app.post('/', controllerPostMessages)
+app.get('/', controllerGetMessages)
+
+
+//normalizr
+import { normalize, denormalize, schema } from "normalizr"
+const messages = {
+    author: {
+      email: "mail del usuario",
+      nombre: "nombre del usuario",
+      apellido: "apellido del usuario",
+      edad: "edad del usuario",
+      alias: "alias del usuario",
+      avatar: "url avatar (foto, logo) del usuario"
+    },
+    text: "mensaje del usuario"
+  }
+  
+  // Definimos un esquema de usuarios (autores)
+  const authorSchema = new schema.Entity('author', {}, { idAttribute: 'email' })
+  
+  // Definimos un esquema de textos (mensajes)
+//   const textSchema = new schema.Entity('texts')
+  
+  // Definimos un esquema de mensajes totales
+//   const messageSchema = new schema.Entity('chats', {
+//     author: authorSchema,
+//     texts: textSchema
+//   });
+  
+  
+  /* ---------------------------------------------------------------------------------------- */
+  import util from 'util'
+  
+  function print(object) {
+    console.log(util.inspect(object, false, 12, true))
+  }
+  
+  console.log(' ------------- OBJETO ORIGINAL --------------- ')
+  print(messages)
+  console.log(JSON.stringify(messages).length)
+  
+  
+  console.log(' ------------- OBJETO NORMALIZADO --------------- ')
+  const normalizedMessages = normalize(messages, authorSchema);
+  print(normalizedMessages)
+  console.log(JSON.stringify(normalizedMessages).length)
+  
+  console.log(' ------------- OBJETO DENORMALIZADO --------------- ')
+  const denormalizedMessages = denormalize(normalizedMessages.result, authorSchema, normalizedMessages.entities);
+  print(denormalizedMessages)
+  console.log(JSON.stringify(denormalizedMessages).length)
+
+
+  //socket chat
 io.on('connection', (socket) => {
 
     socket.emit('mensajesActualizados', mensajes)
@@ -109,7 +192,7 @@ io.on('connection', (socket) => {
         io.sockets.emit('productosActualizados', productos)
     })
 })
-*/
+
 
 export function connect(PORT = 8080) {
         return new Promise((res, rej) => {

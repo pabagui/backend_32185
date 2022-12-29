@@ -1,4 +1,7 @@
 const socket = io() // apunta al localhost:8080
+window.onload= function(){
+    const socket = io() 
+    }
 
 function showMessages(msgs) {
     let html = '<table class="table table-condensed"><tr><th>Fecha</th><th>Email</th><th>Mensaje</th></tr>';
@@ -96,3 +99,57 @@ submitButtonProduct.addEventListener('click', e => {
     }
 })
 
+
+//normalizr
+import { normalize, denormalize, schema } from "normalizr"
+const messages = {
+    author: {
+      email: "mail del usuario",
+      nombre: "nombre del usuario",
+      apellido: "apellido del usuario",
+      edad: "edad del usuario",
+      alias: "alias del usuario",
+      avatar: "url avatar (foto, logo) del usuario"
+    },
+    text: "mensaje del usuario"
+  }
+  
+  // Definimos un esquema de usuarios (autores)
+  const authorSchema = new schema.Entity('author', {}, { idAttribute: 'email' })
+  
+  // Definimos un esquema de textos (mensajes)
+//   const textSchema = new schema.Entity('texts')
+  
+  // Definimos un esquema de mensajes totales
+//   const messageSchema = new schema.Entity('chats', {
+//     author: authorSchema,
+//     texts: textSchema
+//   });
+  
+  
+  /* ---------------------------------------------------------------------------------------- */
+  import util from 'util'
+  
+  function print(object) {
+    console.log(util.inspect(object, false, 12, true))
+  }
+  
+  console.log(' ------------- OBJETO ORIGINAL --------------- ')
+  print(messages)
+  console.log(JSON.stringify(messages).length)
+  
+  
+  console.log(' ------------- OBJETO NORMALIZADO --------------- ')
+  const normalizedMessages = normalize(messages, authorSchema);
+  print(normalizedMessages)
+  console.log(JSON.stringify(normalizedMessages).length)
+  
+  console.log(' ------------- OBJETO DENORMALIZADO --------------- ')
+  const denormalizedMessages = denormalize(normalizedMessages.result, authorSchema, normalizedMessages.entities);
+  print(denormalizedMessages)
+  console.log(JSON.stringify(denormalizedMessages).length)
+
+  const NormalizrReduction = document.getElementById('normalizrReduction')
+  NormalizrReduction.addEventListener('click', e => {
+
+})
