@@ -5,6 +5,14 @@ import express from 'express'
 // import { Server: HttpServer } from 'http'
 // import { Server: IOServer } from 'socket.io'
 
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+import { productosFaker } from './containers/contenedorFaker.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 const app = express()
 // const httpServer = new HttpServer(app)
 // const io = new IOServer(httpServer)
@@ -21,20 +29,21 @@ const productos = []
 app.engine('handlebars', engine())
 app.set('view engine', 'handlebars')
 
-// app.engine(
-//     'hbs', 
-//     engine({
-//     extname:'.hbs',
-//     defaultLayout:'index.hbs',
-//     // defaultLayout:'index.html',
-//     layoutsDir: __dirname+"/views/layout",
-//     partialsDir: __dirname+"/views/partials"
-//   })
-// )
+app.engine(
+    'hbs', 
+    engine({
+    extname:'.hbs',
+    defaultLayout:'index.hbs',
+    // defaultLayout:'index.html',
+    layoutsDir: __dirname+"/views/layout",
+    partialsDir: __dirname+"/views/partials"
+  })
+)
 
 
-app.use('/api/products', routerApiProducts)
-app.use('/api/messages', routerApiMessages)
+// app.use('/api/products', routerApiProducts)
+// app.use('/api/messages', routerApiMessages)
+
 
 
 app.get('/', (req, res) =>{
@@ -61,6 +70,26 @@ app.post('/', (req, res) =>{
     res.redirect('/')
 })
 
+app.get('/api/productos-test', (req, res) => {
+    const hayProductos = productos.length > 0
+    const hayMensajes = mensajes.length > 0
+    const prodsFaker = productosFaker.getAll()
+    res.render('main.hbs', {
+        // rutaFormulario:true,
+        // rutaProductos:false,
+        // mensajes
+        // rutaProductos:true,
+        productos, 
+        mensajes,
+        // formulario, 
+        // chat, 
+        hayProductos:hayProductos,
+        hayMensajes:hayMensajes,
+        prodsFaker
+
+        
+    })
+})
 
 /*
 io.on('connection', (socket) => {

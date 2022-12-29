@@ -17,5 +17,8 @@
     "knex": "^2.3.0",
     "mysql": "^2.18.1",
     "normalizr": "^3.6.2"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^7.6.0"
   }
 }
