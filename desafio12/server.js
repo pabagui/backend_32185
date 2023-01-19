@@ -110,7 +110,7 @@ app.get('/con-session', (req, res) => {
 
 app.get('/logout', (req, res) => {
     req.session.destroy(err => {
-        if (!err) res.send('Logout ok!')
+        if (!err) res.send('Hasta luego')
         else res.send({ status: 'Logout ERROR', body: err })
     })
 })
@@ -135,7 +135,7 @@ app.get('/info', (req, res) => {
     res.send('Send info ok!')
 })
 
-
+/*
 app.get('/login', (req, res) =>{
   // const hayProductos = productos.length > 0
   // const hayMensajes = mensajes.length > 0
@@ -148,7 +148,22 @@ app.get('/login', (req, res) =>{
       bienvenida
   })
 })
+*/
 
+app.get('/login', ({ session }, res) =>{
+  session?.user ? res.render('main.hbs') : res.render('mainLogin.hbs')
+})
+
+app.post('/login', ({ body, session }, res) =>{
+  session.user = body.name
+  if ((session.user === 'pablo')) {
+    session.admin = true;
+    res.status(200);
+    res.render('mainLogin.hbs', { user: session.user });
+  } else {
+    res.render('main.hbs');
+  }
+})
 
 
 

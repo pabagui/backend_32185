@@ -159,13 +159,13 @@ const messages = {
 
  const botonRegistro = document.getElementById('botonRegistro');
 
-btn_register.addEventListener('submit', () => {
-  const registerName = document.getElementById('registerName');
+ botonRegistro.addEventListener('submit', () => {
+  const nombreRegistrado = document.getElementById('nombreRegistrado');
   const object = {};
 
-  if (registerName) {
-    object.name = registerName.value;
+  if (nombreRegistrado) {
+    object.name = nombreRegistrado.value;
   }
-  registerName.value = '';
+  nombreRegistrado.value = '';
 
 });
