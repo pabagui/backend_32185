@@ -8,7 +8,7 @@ import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import { SESSION_SECRET } from './config.js';
 import { randomUUID } from 'crypto';
-
+import util from 'util'
 
 
 import { createServer } from 'http'
@@ -242,35 +242,17 @@ app.post('/login', ({ body, session }, res) =>{
 //desafio 14: object process
 
 app.get('/info2', (req, res) =>{
-    res.send('<h1>😃Hola servidor Express para el desafío 3</h1>');
+    res.send(
+        'Argumentos de entrada: '+ process.argv + "\n" +
+        'Path de ejecución: '+ process.execPath + "\n" +
+        'Sistema operativo: '+ process.platform + "\n" + 
+        'Uso de la memoria '+ util.inspect(process.memoryUsage()) + "\n" +
+        'Process id: '+ process.pid + "\n" +
+        'Versión de node.js: '+ process.version + "\n" +
+        'Carpeta del proyecto: '+ process.cwd() + "\n" +
+        'Memoria total reservada (rss): '+ util.inspect(process.memoryUsage().rss)
+        )
     })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
