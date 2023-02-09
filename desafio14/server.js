@@ -9,6 +9,7 @@ import { Strategy as LocalStrategy } from 'passport-local';
 import { SESSION_SECRET } from './config.js';
 import { randomUUID } from 'crypto';
 import util from 'util'
+import routerRandoms from './routers/routerRandoms.js';
 
 
 import { createServer } from 'http'
@@ -254,9 +255,8 @@ app.get('/info2', (req, res) =>{
         )
     })
 
-
-
-
+    app.use('/api/randoms', routerRandoms)
+    
 
 
 app.post('/', (req, res) =>{
