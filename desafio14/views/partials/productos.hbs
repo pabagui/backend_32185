@@ -1,0 +1,28 @@
+<h2 style="color:orange;">Productos disponibles</h2>
+{{#if hayProductos}}
+{{!-- <div class="table-responsive"></div> --}}
+<div id="productList" class="table-responsive">
+    <table class="table table-dark">
+        <tr style="color: orange;">
+            <th>Nombre producto</th>
+            <th>Precio</th>
+            <th>Foto</th>
+        </tr>
+        {{#each productos}}
+        <tr>
+            <td>
+                {{this.title}}
+            </td>
+            <td>
+                {{this.price}} 
+            </td>
+            <td>
+                <img src={{this.thumbnail}} style='width:70px;height:90px;'>
+            </td>
+        </tr>
+        {{/each}}
+    </table>
+</div>
+{{else}}
+<h3 class="alert alert-danger">No hay productos</h3>
+{{/if}}
