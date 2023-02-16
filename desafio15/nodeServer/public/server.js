@@ -239,11 +239,15 @@ app.post('/login', ({ body, session }, res) =>{
 })
 
 
+//desafío 15: número procesadores
+import { cpus } from 'os'
+const  nProcesadores = cpus().length
 
 //desafio 14: object process
 
 app.get('/info2', (req, res) =>{
     res.send(
+        'Número de procesadores : '+ nProcesadores + "\n" +
         'Argumentos de entrada: '+ process.argv + "\n" +
         'Path de ejecución: '+ process.execPath + "\n" +
         'Sistema operativo: '+ process.platform + "\n" + 
