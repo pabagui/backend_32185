@@ -392,14 +392,53 @@ io.on('connection', (socket) => {
 
 */
 
-export function connect(PORT = 8080) {
-        return new Promise((res, rej) => {
-    // const server = app.listen(PORT, () => {  
-    const server = app.listen(PORT, () => {  
-        res(server)
-    });
-    server.on('error', (error) => console.log(error));
-    })
-    }
+// export function connect(PORT = 8080) {
+export function connect( {PORT}) {
+    return new Promise((res, rej) => {
+// const server = app.listen(PORT, () => {  
+const server = app.listen(PORT, () => {  
+    res(server)
+});
+server.on('error', (error) => console.log(error))
+})
+}
 
 // module.exports = { connect }
+
+// CLUSTER DESAFÍO 15
+
+import cluster from 'cluster'
+import { MODO, PORT } from '../../config.js'
+
+cluster.schedulingPolicy = cluster.SCHED_RR
+
+if (MODO === 'cluster') {
+  if (cluster.isPrimary) {
+    cluster.schedulingPolicy = cluster.SCHED_RR
+
+    console.log('modo de ejecucion: CLUSTER')
+    console.log(`Proceso primario: pid ${process.pid}`)
+
+    for (let i = 0; i < nProcesadores; i++) {
+      cluster.fork();
+    }
+
+    cluster.on('exit', worker => {
+      console.log(`Desconexión - pid ${worker.process.pid}`)
+      cluster.fork();
+    })
+  } else {
+    console.log(`Proceso Secundario - pid ${process.pid}`)
+    // const server = new crearServidor(); //REVISAR ESTA CLASS
+    // await server.connect({ puerto: PORT })
+    await connect({ puerto: PORT })
+    console.log(`🔥Conectado al puerto ${PORT}🔥`)
+  }
+} else {
+//   const server = new crearServidor(); //REVISAR ESTA CLASS
+//   await server.connect({ puerto: PORT })
+  await connect({ puerto: PORT })
+  console.log(`🔥Conectado al puerto ${PORT}🔥`)
+}
+
+
