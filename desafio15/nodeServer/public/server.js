@@ -35,7 +35,7 @@ const io = new Server(httpServer)
 import { engine } from 'express-handlebars'
 
 app.use(express.urlencoded({extended: true}))
-app.use(express.static('views'))
+// app.use(express.static('views')) //COMENTADO PARA QUE FUNCIONE PM2
 
 const mensajes = []
 const productos = []
@@ -437,4 +437,14 @@ if (MODO === 'cluster') {
   console.log(`🔥Conectado al puerto ${PORT}🔥`)
 }
 
+//server con PM2
+app.get('/datos', (req, res) => {
+    console.log(`port: ${PORT} -> Fyh: ${Date.now()}`)
+    res.send(`Servidor express <span>(Nginx)</span> en ${PORT} -
+    <b>PID ${process.id}</b> - ${new Date().toLocaleString()}`)
+})
 
+
+app.listen(PORT, err => {
+    if (!err)  console.log(`🔥Servidor express escuchando el puerto ${PORT} - PID WORKER ${process.id}🔥`)
+})
