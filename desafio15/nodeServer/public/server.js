@@ -429,14 +429,10 @@ if (MODO === 'cluster') {
     })
   } else {
     console.log(`Proceso Secundario - pid ${process.pid}`)
-    // const server = new crearServidor(); //REVISAR ESTA CLASS
-    // await server.connect({ puerto: PORT })
     await connect({ puerto: PORT })
     console.log(`🔥Conectado al puerto ${PORT}🔥`)
   }
 } else {
-//   const server = new crearServidor(); //REVISAR ESTA CLASS
-//   await server.connect({ puerto: PORT })
   await connect({ puerto: PORT })
   console.log(`🔥Conectado al puerto ${PORT}🔥`)
 }
