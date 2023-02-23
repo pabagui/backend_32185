@@ -10,6 +10,7 @@ import { SESSION_SECRET } from '../../config.js';
 import { randomUUID } from 'crypto';
 import util from 'util'
 import routerRandoms from '../../routers/routerRandoms.js';
+import logger from '../../logger.js';
 
 
 import { createServer } from 'http'
@@ -399,7 +400,8 @@ export function connect( {PORT}) {
 const server = app.listen(PORT, () => {  
     res(server)
 });
-server.on('error', (error) => console.log(error))
+// server.on('error', (error) => console.log(error)) //desafio16 logger
+server.on('error', (error) => logger.error(error))
 })
 }
 
@@ -416,30 +418,37 @@ if (MODO === 'cluster') {
   if (cluster.isPrimary) {
     cluster.schedulingPolicy = cluster.SCHED_RR
 
-    console.log('modo de ejecucion: CLUSTER')
-    console.log(`Proceso primario: pid ${process.pid}`)
+    // console.log('modo de ejecucion: CLUSTER') //desafio 16 logger
+    // console.log(`Proceso primario: pid ${process.pid}`) //desafio 16 logger
+    logger.info('modo de ejecucion: CLUSTER')
+    logger.info(`Proceso primario: pid ${process.pid}`)
 
     for (let i = 0; i < nProcesadores; i++) {
       cluster.fork();
     }
 
     cluster.on('exit', worker => {
-      console.log(`Desconexión - pid ${worker.process.pid}`)
+      // console.log(`Desconexión - pid ${worker.process.pid}`)
+      logger.info(`Desconexión - pid ${worker.process.pid}`) //desafio 16 logger
       cluster.fork();
     })
   } else {
-    console.log(`Proceso Secundario - pid ${process.pid}`)
+    // console.log(`Proceso Secundario - pid ${process.pid}`)
+    logger.info(`Proceso Secundario - pid ${process.pid}`)//desafio 16 logger
     await connect({ puerto: PORT })
-    console.log(`🔥Conectado al puerto ${PORT}🔥`)
+    // console.log(`🔥Conectado al puerto ${PORT}🔥`)
+    logger.info(`🔥Conectado al puerto ${PORT}🔥`) //desafio 16 logger
   }
 } else {
   await connect({ puerto: PORT })
-  console.log(`🔥Conectado al puerto ${PORT}🔥`)
+  // console.log(`🔥Conectado al puerto ${PORT}🔥`)
+  logger.info(`🔥Conectado al puerto ${PORT}🔥`) //desafio 16 logger
 }
 
 //server con PM2
 app.get('/datos', (req, res) => {
-    console.log(`port: ${PORT} -> Fyh: ${Date.now()}`)
+    // console.log(`port: ${PORT} -> Fyh: ${Date.now()}`)
+    logger.info(`port: ${PORT} -> Fyh: ${Date.now()}`) //desafio 16 logger
     res.send(`Servidor express <span>(Nginx)</span> en ${PORT} -
     <b>PID ${process.id}</b> - ${new Date().toLocaleString()}`)
 })
@@ -464,6 +473,13 @@ app.get('/info2zip', compression(), (req, res) =>{
 
 
 
+app.all('*', (req, res) => {
+  const { url, method } = req
+  logger.warn(`Ruta ${method} ${url} no implementada`)
+  res.send(`Ruta ${method} ${url} no está implementada`)
+})
+
 app.listen(PORT, err => {
-    if (!err)  console.log(`🔥Servidor express escuchando el puerto ${PORT} - PID WORKER ${process.id}🔥`)
+    if (!err)  logger.info(`🔥Servidor express escuchando el puerto ${PORT} - PID WORKER ${process.id}🔥`) //desafio 16 logger
+    // console.log(`🔥Servidor express escuchando el puerto ${PORT} - PID WORKER ${process.id}🔥`)
 })
