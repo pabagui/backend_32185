@@ -189,6 +189,7 @@ app.get('/logout', (req, res) => {
     })
 })
 
+/*
 app.get('/info', (req, res) => {
     console.log('------------ req.session -------------')
     console.log(req.session)
@@ -207,6 +208,28 @@ app.get('/info', (req, res) => {
     console.log('--------------------------------------')
 
     res.send('Send info ok!')
+})
+*/
+
+//logger pino desafío 16
+app.get('/info', (req, res) => {
+  logger.info('------------ req.session -------------')
+  logger.info(req.session)
+  logger.info('--------------------------------------')
+
+  logger.info('----------- req.sessionID ------------')
+  logger.info(req.sessionID)
+  logger.info('--------------------------------------')
+
+  logger.info('----------- req.cookies ------------')
+  logger.info(req.cookies)
+  logger.info('--------------------------------------')
+
+  logger.info('---------- req.sessionStore ----------')
+  logger.info(req.sessionStore)
+  logger.info('--------------------------------------')
+
+  res.send('Send info ok!')
 })
 
 /*
@@ -245,6 +268,7 @@ import { cpus } from 'os'
 const  nProcesadores = cpus().length
 
 //desafio 14: object process
+
 
 app.get('/info2', (req, res) =>{
     res.send(
@@ -470,6 +494,32 @@ app.get('/info2zip', compression(), (req, res) =>{
         'Memoria total reservada (rss): '+ util.inspect(process.memoryUsage().rss)
         )
     })
+
+
+//desafio 16 artilley
+
+function isPrime(num) {
+  if ([2, 3].includes(num)) return true;
+  else if ([2, 3].some(n => num % n == 0)) return false;
+  else {
+      let i = 5, w = 2;
+      while ((i ** 2) <= num) {
+          if (num % i == 0) return false
+          i += w
+          w = 6 - w
+      }
+  }
+  return true
+}
+
+app.get('/profiling', (req, res) => {
+  const primes = []
+  const max = Number(req.query.max) || 1000
+  for (let i = 1; i <= max; i++) {
+      if (isPrime(i)) primes.push(i)
+  }
+  res.json(primes)
+})
 
 
 
