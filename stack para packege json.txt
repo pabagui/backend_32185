@@ -1,1 +1,0 @@
-npm i bcrypt connect-mongo cookie-parser dotenv express-handlebars express-session minimist mongoose passport passport-local pm2 socket.io pino artillery compression
