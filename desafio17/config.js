@@ -44,7 +44,7 @@ export  const mysqlConfig = {
 // export const SESSION_SECRET = 'secreto's
 
 export const PORT = process.env.PORT || 8080 // puerto original: comentar cuanto use pm2
-// export const PORT = parseInt(process.arg[2]) ?? 8080 //puerto para pm2: descomentar cuando use pm2
+// export const PORT = parseInt(process.arg[2]) || 8080 //puerto para pm2: descomentar cuando use pm2
 // export const PORT = ParsedArgs(process.argv.PORT) ?? 8080 //minimist
 export const PERSISTENCIA = process.env.PERSISTENCIA
 export const SESSION_SECRET = process.env.SESSION_SECRET

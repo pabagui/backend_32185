@@ -15,7 +15,9 @@ const sns = new AWS.SNS()
 
 const SNS_TOPIC_ARN = 'arn:aws:sns:us-east-2:328975487234:nuevos-productos'
 
+// exports.notify = ({ subject, message }) => {
 export const notify = ({ subject, message }) => {
+// export default notify = ({ subject, message }) => {
     const msg = {
         Subject: subject,
         Message: message,
@@ -26,4 +28,9 @@ export const notify = ({ subject, message }) => {
 
 // dynamoDb
 
-exports.dynamodb = new AWS.DynamoDB.DocumentClient()
+// exports.dynamodb = new AWS.DynamoDB.DocumentClient()
+
+// export const dynamodb = new AWS.DynamoDB.DocumentClient()
+
+export const dynamodb = new AWS.DynamoDB.DocumentClient()
+

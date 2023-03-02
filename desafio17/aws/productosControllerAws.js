@@ -1,8 +1,9 @@
-import { notify } from "./aws.js"
+import  { notify } from "./aws.js"
 import { randomUUID } from "crypto"
 
-// import { productosDao } from "./productosDao"
-const productosDao = require('./productosDao')
+// import  productosDao from './productosDao'
+// const productosDao = require('./productosDao')
+import './productosDao.js'
 
 export const get = async (req, res) => {
     try {
