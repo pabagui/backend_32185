@@ -51,4 +51,48 @@ export class ContenedorMongoDb {
             throw new Error(`${this.nombreColeccion} no encontrado`)
         }          
     }
+
+
+    async updateByObject(currentObject, newObject) { 
+        try {
+        console.log("UPDATE BY OBJECT")
+        console.log("OLD: ", currentObject)
+        console.log("NEW: ", newObject)
+        return await this.coleccion.updateOne(currentObject, { $set: newObject })
+        } catch (err) {
+        logger.error(err)
+        throw new Error('Error al actualizar objeto en bbdd')
+        }
+    }
+
+    async updateById(id, update) {  
+        try {
+        const result = await this.coleccion.updateOne({ id: id }, { $set: update })
+        console.log(`Items actualizados: ${result.modifiedCount}`)
+        return result.modifiedCount
+        } catch (err) {
+        logger.error(err)
+        throw new Error('Error al actualizar item en bbdd')
+        }
+    }
+
+
+    async deleteById(object) {
+        try {
+        await this.coleccion.deleteOne({ id: object.id })
+        } catch (err) {
+        logger.error(err)
+        throw new Error('error al eliminar por id en bbdd');
+        }
+    }
+
+    async getEmail(email) {
+        try {
+          return await this.coleccion.findOne({ email: email })
+        } catch (err) {
+          logger.error(err)
+          throw new Error('error al obtener email de bbdd')
+        }
+      }
+
 }

@@ -50,7 +50,7 @@ app.post('/privado', onlyForAdmins, (req, res) => {
 */
 
 //conexión a base externa: traer
-import { modeloMaster } from './modeloMaestro.js';
+import { modeloMaster } from '../maestros/modeloMaestro.js';
 
 async function controllerPostProducts(req, res) {
     const datosProducto = req.body

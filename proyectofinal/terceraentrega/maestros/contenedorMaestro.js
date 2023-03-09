@@ -1,6 +1,6 @@
 // import { PERSISTENCIA } from "../config/config.js";
 // import { ContenedorFirestore } from "./contenedorFirebase.js";
-import { ContenedorMongoDb } from "./mongo/ContenedorMongoDb.js";
+import { ContenedorMongoDb } from "../src/mongo/ContenedorMongoDb.js";
 // import { ContenedorMemoria } from "./contenedorMemoria.js";
 
 let contenedorMaestro= new ContenedorMongoDb('productos')
