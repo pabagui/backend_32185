@@ -20,7 +20,7 @@ export async function createUser(body) {
       throw new Error('error al crear usuario')
     }
   }
-  
+  fin
 
   export async function findEmail(email) {
     try {

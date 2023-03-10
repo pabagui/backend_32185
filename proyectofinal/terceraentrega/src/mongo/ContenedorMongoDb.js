@@ -18,6 +18,16 @@ export class ContenedorMongoDb {
         
     }
 
+    async getAll() { 
+        try {
+          return await this.coleccion.find({}).toArray()
+        } catch (err) {
+          logger.error(err)
+          throw new Error('error al buscar en bbdd')
+        }
+      }
+
+
     async  getSomething(criterio = {}) {
         try {
             return await this.coleccion.find(criterio).toArray()
@@ -85,6 +95,16 @@ export class ContenedorMongoDb {
         throw new Error('error al eliminar por id en bbdd');
         }
     }
+
+    async deleteAll() {
+        try {
+          await this.coleccion.deleteMany({});
+        } catch (err) {
+          logger.error(err);
+          throw new Error('error al eliminar items en bbdd');
+        }
+      }
+
 
     async getEmail(email) {
         try {

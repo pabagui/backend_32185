@@ -10,6 +10,7 @@ export const CNX_STR = process.env.CNX_STR
 // export const DB_NAME = 'ecommerce'
 export const DB_NAME = process.env.DB_NAME
 // export const PERSISTENCIA = process.env.PERSISTENCIA
+export const CNX_sessions = process.env.CNX_sessions
 
 // export const PERSISTENCIA = 'mongodb'
 // export const PERSISTENCIA = 'firestore'

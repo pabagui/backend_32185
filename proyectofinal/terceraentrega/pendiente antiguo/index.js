@@ -1,7 +1,7 @@
 // const { connect } = require('./server.js');
-import { connect } from './src/nodeServer/server.js'
+import { connect } from './server.js';
 // const puerto = process.env.PORT ?? 8080
-import { PORT } from './config/config.js'
+import { PORT } from '../config/config.js';
 
 /*
 async function main() {

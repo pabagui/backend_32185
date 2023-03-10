@@ -78,7 +78,7 @@ export async function createCart() {
   
   
 
-  export async function deleteProdsInCart(idCart) {
+  export async function deleteProductsInCart(idCart) {
     try {
       const cart = await contenedorCarritos.getById(idCart)
       if (cart) { 
