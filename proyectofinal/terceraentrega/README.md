@@ -1,4 +1,8 @@
-0. PARA DESAFIO 15
+0. TERCERA ENTREGA PROYECTO FINAL:
+* ejecutar en server.js (src/nodeServer)
+
+
+PARA DESAFIO 15
 * En config.js descomentar PORT para PM2 y comentar PORT original
 * Para iniciar pm2: pm2 start index.js
 
