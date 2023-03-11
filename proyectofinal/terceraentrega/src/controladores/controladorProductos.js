@@ -1,6 +1,6 @@
-import { saveProducts, replaceProductById, deleteProduct } from "../../maestros/productoMaestro";
-import { contenedorProductos } from "../../maestros/contenedorMaestro";
-import { logger } from "../../logger/pino";
+import { saveProducts, replaceProductById, deleteProduct } from "../../maestros/productoMaestro.js";
+import { contenedorProductos } from "../../maestros/contenedorMaestro.js";
+import { logger } from "../../logger/pino.js";
 
 
 export async function getAllProducts(req, res) {

@@ -1,6 +1,7 @@
 import express from 'express';
 import { Router } from 'express';
-import { getAllProducts, getProductsById, saveProduct, updateById, deleteById } from '../controladores/controladorProductos..js';
+// import { getAllProducts, getProductsById, saveProduct, updateById, deleteById } from '../controladores/controladorProductos.js'
+import { getAllProducts, getProductsById, saveProduct, updateById, deleteById } from '../../src/controladores/controladorProductos.js'
 import { valAuthenticate } from '../../admin/authLogin.js';
 import { onlyForAdmins } from '../../admin/adminArea.js';
 

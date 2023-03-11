@@ -1,6 +1,7 @@
 import express from 'express';
 import { MODO, PORT } from '../../config/config.js'
-import { logger } from '../../logger/pino.js';
+// import { logger } from '../../logger/pino.js';
+import { logger } from '../../logger/pino.js'
 import { Server } from './serverConstructor.js';
 import cluster from 'cluster';
 import { cpus } from 'os';

@@ -1,9 +1,9 @@
 import express from 'express'
 import { Router } from 'express'
-import { addProductsToCart, showProducts, deleteProductInCart, emptyCart, buyProducts } from "../controladores/controladorCarritos";
+// import { addProductsToCart, showProducts, deleteProductInCart, emptyCart, buyProducts } from "../controladores/controladorCarritos";
+import { addProductsToCart, showProducts, deleteProductInCart, emptyCart, buyProducts } from '../controladores/controladorCarritos.js'
 
-
-export const routerApiCart = Router();
+export default routerApiCart = Router();
 // export const routerApiCart = express.Router();
 
 routerApiCart.post('/', async (req, res) => {

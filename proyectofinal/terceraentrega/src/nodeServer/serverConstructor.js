@@ -5,7 +5,7 @@ import passport from 'passport';
 
 import { SESSION_SECRET, CNX_sessions } from '../../config/config.js';
 import { routerApiProd } from '../routers/routerApiProducts.js';
-import { routerApiCarts } from '../routers/routerApiCarts.js';
+import routerApiCarts from '../routers/routerApiCarts.js';
 import { routerApiUser } from '../routers/routerApiUser.js';
 import { routerApiLog } from '../routers/routerApiLog.js';
 import { valAuthenticate } from '../../admin/authLogin.js';

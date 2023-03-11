@@ -1,6 +1,6 @@
 import { randomUUID } from "crypto";
-import { contenedorCarritos, contenedorProductos } from "./contenedorMaestro";
-import { logger } from "../logger/pino";
+import { contenedorCarritos, contenedorProductos } from "./contenedorMaestro.js";
+import { logger } from "../logger/pino.js";
 
 
 

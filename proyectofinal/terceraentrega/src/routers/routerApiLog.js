@@ -1,9 +1,10 @@
 import express from 'express'
 import { Router } from 'express'
-import { LogOut } from '../controladores/controladorLog'
+// import { LogOut } from '../controladores/controladorLog'
+import { LogOut } from '../controladores/controladorLog.js'
 import { valAuthenticate } from '../../admin/authLogin.js'
 import passport from 'passport'
-import { logger } from '../../logger/pino'
+import { logger } from '../../logger/pino.js'
 
 export const routerApiLog = Router()
 // export const routerApiLog = express.Router()

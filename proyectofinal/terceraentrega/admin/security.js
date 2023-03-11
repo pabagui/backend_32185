@@ -1,7 +1,7 @@
-import { bcrypt } from 'bcrypt'
-import { SECRET } from '../config/config'
-import { logger } from '../logger/pino'
-import { findEmail } from '../maestros/usuarioMaestro'
+import  bcrypt  from 'bcrypt'
+import { SECRET } from '../config/config.js'
+import { logger } from '../logger/pino.js'
+import { findEmail } from '../maestros/usuarioMaestro.js'
 
 
 

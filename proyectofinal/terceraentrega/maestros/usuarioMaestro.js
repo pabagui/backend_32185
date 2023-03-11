@@ -1,8 +1,8 @@
 import { randomUUID } from "crypto";
-import { contenedorUsuarios } from "./contenedorMaestro"; // ¿as users?
-import  { createCart } from './carritoMaestro'
-import { logger } from "../logger/pino";
-import { encryptPassword } from "../admin/security";
+import { contenedorUsuarios } from "./contenedorMaestro.js"; // ¿as users?
+import  { createCart } from './carritoMaestro.js'
+import { logger } from "../logger/pino.js";
+import { encryptPassword } from "../admin/security.js";
 
 
 

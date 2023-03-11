@@ -7,7 +7,7 @@ import { sendEmail } from './nodeMailer.js';
 import { logger } from '../logger/pino.js'; 
 
 
-export default function passportConfig() {
+export function passportConfig() {
  
   passport.serializeUser((user, done) => {
     done(null, user.id)

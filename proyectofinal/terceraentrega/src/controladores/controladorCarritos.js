@@ -1,7 +1,7 @@
-import { createCart, saveProductsInCart, getProductsInCart, deleteProductsInCart, deleteProduct } from "../../maestros/carritoMaestro";
-import { logger } from "../../logger/pino";
-import { findEmail } from "../../maestros/usuarioMaestro";
-import { sendEmail } from '../../admin/nodeMailer.js'
+import { createCart, saveProductsInCart, getProductsInCart, deleteProductsInCart, deleteProduct } from "../../maestros/carritoMaestro.js";
+import { logger } from "../../logger/pino.js";
+import { findEmail } from "../../maestros/usuarioMaestro.js";
+import { sendEmail } from '../../config/nodeMailer.js'
 
 
 
@@ -16,7 +16,7 @@ async function showUser(email) {
         }
     }
   
- export async function createCart(req, res) { 
+export async function newCartCreation (req, res) { 
         try {
         const id = await createCart()
         res.status(201);

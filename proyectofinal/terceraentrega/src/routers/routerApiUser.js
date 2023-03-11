@@ -1,7 +1,8 @@
 import express from 'express'
 import { Router } from 'express'
 import passport from 'passport'
-import { logger } from '../../logger/pino'
+// import { logger } from '../../logger/pino';
+import { logger } from '../../logger/pino.js'
 // import { userInfo } from '../controladores/controladorUsuarios'
 // import { valAuthenticate } from '../../admin/authLogin.js'
 
