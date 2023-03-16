@@ -17,6 +17,7 @@
     "autocannon": "^7.10.0",
     "aws-sdk": "^2.1323.0",
     "bcrypt": "^5.1.0",
+    "child_process": "^1.0.2",
     "cluster": "^0.7.7",
     "compression": "^1.7.4",
     "connect-mongo": "^4.6.0",
@@ -34,6 +35,7 @@
     "passport-local": "^1.0.0",
     "pino": "^8.10.0",
     "pm2": "^5.2.2",
-    "socket.io": "^4.6.1"
+    "socket.io": "^4.6.1",
+    "util": "^0.12.5"
   }
 }

@@ -1,7 +1,7 @@
 // const { connect } = require('./server.js');
 // import  { connect } from './server.js';
-import  { connect } from './nodeServer/public/server.js';
-import  { PORT } from './config.js';
+import  { connect } from './server.js';
+import  { PORT } from './config/config.js';
 
 
 async function main() {

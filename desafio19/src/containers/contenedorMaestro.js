@@ -1,4 +1,4 @@
-import { PERSISTENCIA } from "./config.js";
+import { PERSISTENCIA } from "../config/config.js";
 // import { ContenedorFirestore } from "./contenedorFirebase.js";
 import { ContenedorMongoDb } from "./ContenedorMongoDb.js";
 // import { ContenedorMemoria } from "./contenedorMemoria.js";

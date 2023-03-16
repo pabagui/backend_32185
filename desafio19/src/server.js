@@ -6,11 +6,11 @@ import session from 'express-session';
 import MongoStore from 'connect-mongo';
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
-import { SESSION_SECRET } from '../../config.js';
+import { SESSION_SECRET } from './config/config.js';
 import { randomUUID } from 'crypto';
 import util from 'util'
-import routerRandoms from '../../routers/routerRandoms.js';
-import logger from '../../logger.js';
+import routerRandoms from './routers/routerRandoms.js';
+import logger from './services/logger.js';
 
 
 import { createServer } from 'http'
@@ -316,7 +316,7 @@ app.get('/api/productos-test', (req, res) => {
 })
 
 //conexión a base externa MONGODB / NORMALIZR
-import { modeloMaster } from '../../modeloMaestro.js';
+import { modeloMaster } from './models/modeloMaestro.js';
 
 async function controllerPostMessages(req, res) {
     const datosMensaje = req.body
@@ -434,7 +434,7 @@ server.on('error', (error) => logger.error(error))
 // CLUSTER DESAFÍO 15
 
 import cluster from 'cluster'
-import { MODO, PORT } from '../../config.js'
+import { MODO, PORT } from './config/config.js'
 
 cluster.schedulingPolicy = cluster.SCHED_RR
 

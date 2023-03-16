@@ -1,4 +1,4 @@
-import { mysqlConfig } from "../config.js";
+import { mysqlConfig } from "../config/config.js";
 import createKnex from 'knex';
 
 const mySqlClient = createKnex(mysqlConfig)

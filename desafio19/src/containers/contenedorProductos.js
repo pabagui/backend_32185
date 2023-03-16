@@ -1,5 +1,5 @@
 import ContenedorMySql from './ContenedorMySql.js';
-import { mysqlConfig } from '../config.js';
+import { mysqlConfig } from '../config/config.js';
 import createKnexClient from 'knex';
 
 

@@ -1,4 +1,4 @@
-import { mongoDataBase } from "./mongoClient.js";
+import { mongoDataBase } from "../services/mongoClient.js";
 
 export class ContenedorMongoDb {
 

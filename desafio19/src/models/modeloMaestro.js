@@ -1,4 +1,4 @@
-import { contenedorMaestro } from "./contenedorMaestro.js";
+import { contenedorMaestro } from "../containers/contenedorMaestro.js";
 
 class ModelMaster {
 

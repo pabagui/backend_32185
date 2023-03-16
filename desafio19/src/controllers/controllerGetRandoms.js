@@ -10,7 +10,7 @@ export function controllerGetRandoms(req, res) {
 */
 
 export function controllerGetRandoms(req, res) {
-    let randomNumber = fork(path.resolve(process.cwd()), 'computo.js')
+    let randomNumber = fork(path.resolve(process.cwd()), './computo.js')
     randomNumber.on('message', resultado => {
         if (resultado === 'listo') {
             randomNumber.send('start')
