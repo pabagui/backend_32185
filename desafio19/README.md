@@ -1,3 +1,6 @@
+ejecutar app en src/index.js
+
+
 0. PARA DESAFIO 15
 * En config.js descomentar PORT para PM2 y comentar PORT original
 * Para iniciar pm2: pm2 start index.js
