@@ -6,10 +6,11 @@ import session from 'express-session';
 import MongoStore from 'connect-mongo';
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
-import { SESSION_SECRET } from './config.js.js';
+import { SESSION_SECRET } from './config/config.js';
 import { randomUUID } from 'crypto';
 import util from 'util'
-import routerRandoms from './routers/routerRandoms.js.js';
+import routerRandoms from './routers/routerRandoms.js';
+import logger from './services/logger.js';
 
 
 import { createServer } from 'http'
@@ -35,7 +36,7 @@ const io = new Server(httpServer)
 import { engine } from 'express-handlebars'
 
 app.use(express.urlencoded({extended: true}))
-app.use(express.static('views'))
+// app.use(express.static('views')) //COMENTADO PARA QUE FUNCIONE PM2
 
 const mensajes = []
 const productos = []
@@ -188,6 +189,7 @@ app.get('/logout', (req, res) => {
     })
 })
 
+/*
 app.get('/info', (req, res) => {
     console.log('------------ req.session -------------')
     console.log(req.session)
@@ -206,6 +208,28 @@ app.get('/info', (req, res) => {
     console.log('--------------------------------------')
 
     res.send('Send info ok!')
+})
+*/
+
+//logger pino desafío 16
+app.get('/info', (req, res) => {
+  logger.info('------------ req.session -------------')
+  logger.info(req.session)
+  logger.info('--------------------------------------')
+
+  logger.info('----------- req.sessionID ------------')
+  logger.info(req.sessionID)
+  logger.info('--------------------------------------')
+
+  logger.info('----------- req.cookies ------------')
+  logger.info(req.cookies)
+  logger.info('--------------------------------------')
+
+  logger.info('---------- req.sessionStore ----------')
+  logger.info(req.sessionStore)
+  logger.info('--------------------------------------')
+
+  res.send('Send info ok!')
 })
 
 /*
@@ -239,11 +263,16 @@ app.post('/login', ({ body, session }, res) =>{
 })
 
 
+//desafío 15: número procesadores
+import { cpus } from 'os'
+const  nProcesadores = cpus().length
 
 //desafio 14: object process
 
+
 app.get('/info2', (req, res) =>{
     res.send(
+        'Número de procesadores : '+ nProcesadores + "\n" +
         'Argumentos de entrada: '+ process.argv + "\n" +
         'Path de ejecución: '+ process.execPath + "\n" +
         'Sistema operativo: '+ process.platform + "\n" + 
@@ -287,7 +316,7 @@ app.get('/api/productos-test', (req, res) => {
 })
 
 //conexión a base externa MONGODB / NORMALIZR
-import { modeloMaster } from './modeloMaestro.js.js';
+import { modeloMaster } from './models/modeloMaestro.js';
 
 async function controllerPostMessages(req, res) {
     const datosMensaje = req.body
@@ -388,15 +417,119 @@ io.on('connection', (socket) => {
 
 */
 
-
-export function connect(PORT = 8080) {
-        return new Promise((res, rej) => {
-    // const server = app.listen(PORT, () => {  
-    const server = app.listen(PORT, () => {  
-        res(server)
-    });
-    server.on('error', (error) => console.log(error));
-    })
-    }
+// export function connect(PORT = 8080) {
+export function connect( {PORT}) {
+    return new Promise((res, rej) => {
+// const server = app.listen(PORT, () => {  
+const server = app.listen(PORT, () => {  
+    res(server)
+});
+// server.on('error', (error) => console.log(error)) //desafio16 logger
+server.on('error', (error) => logger.error(error))
+})
+}
 
 // module.exports = { connect }
+
+// CLUSTER DESAFÍO 15
+
+import cluster from 'cluster'
+import { MODO, PORT } from './config/config.js'
+
+cluster.schedulingPolicy = cluster.SCHED_RR
+
+if (MODO === 'cluster') {
+  if (cluster.isPrimary) {
+    cluster.schedulingPolicy = cluster.SCHED_RR
+
+    // console.log('modo de ejecucion: CLUSTER') //desafio 16 logger
+    // console.log(`Proceso primario: pid ${process.pid}`) //desafio 16 logger
+    logger.info('modo de ejecucion: CLUSTER')
+    logger.info(`Proceso primario: pid ${process.pid}`)
+
+    for (let i = 0; i < nProcesadores; i++) {
+      cluster.fork();
+    }
+
+    cluster.on('exit', worker => {
+      // console.log(`Desconexión - pid ${worker.process.pid}`)
+      logger.info(`Desconexión - pid ${worker.process.pid}`) //desafio 16 logger
+      cluster.fork();
+    })
+  } else {
+    // console.log(`Proceso Secundario - pid ${process.pid}`)
+    logger.info(`Proceso Secundario - pid ${process.pid}`)//desafio 16 logger
+    await connect({ puerto: PORT })
+    // console.log(`🔥Conectado al puerto ${PORT}🔥`)
+    logger.info(`🔥Conectado al puerto ${PORT}🔥`) //desafio 16 logger
+  }
+} else {
+  await connect({ puerto: PORT })
+  // console.log(`🔥Conectado al puerto ${PORT}🔥`)
+  logger.info(`🔥Conectado al puerto ${PORT}🔥`) //desafio 16 logger
+}
+
+//server con PM2
+app.get('/datos', (req, res) => {
+    // console.log(`port: ${PORT} -> Fyh: ${Date.now()}`)
+    logger.info(`port: ${PORT} -> Fyh: ${Date.now()}`) //desafio 16 logger
+    res.send(`Servidor express <span>(Nginx)</span> en ${PORT} -
+    <b>PID ${process.id}</b> - ${new Date().toLocaleString()}`)
+})
+
+
+//desafío 16 gzip
+import compression from 'compression';
+
+app.get('/info2zip', compression(), (req, res) =>{
+    res.send(
+        'Número de procesadores : '+ nProcesadores + "\n" +
+        'Argumentos de entrada: '+ process.argv + "\n" +
+        'Path de ejecución: '+ process.execPath + "\n" +
+        'Sistema operativo: '+ process.platform + "\n" + 
+        'Uso de la memoria '+ util.inspect(process.memoryUsage()) + "\n" +
+        'Process id: '+ process.pid + "\n" +
+        'Versión de node.js: '+ process.version + "\n" +
+        'Carpeta del proyecto: '+ process.cwd() + "\n" +
+        'Memoria total reservada (rss): '+ util.inspect(process.memoryUsage().rss)
+        )
+    })
+
+
+//desafio 16 artilley
+
+function isPrime(num) {
+  if ([2, 3].includes(num)) return true;
+  else if ([2, 3].some(n => num % n == 0)) return false;
+  else {
+      let i = 5, w = 2;
+      while ((i ** 2) <= num) {
+          if (num % i == 0) return false
+          i += w
+          w = 6 - w
+      }
+  }
+  return true
+}
+
+app.get('/profiling', (req, res) => {
+  const primes = []
+  const max = Number(req.query.max) || 1000
+  for (let i = 1; i <= max; i++) {
+      if (isPrime(i)) primes.push(i)
+  }
+  res.json(primes)
+})
+
+
+
+app.all('*', (req, res) => {
+  const { url, method } = req
+  logger.warn(`Ruta ${method} ${url} no implementada`)
+  res.send(`Ruta ${method} ${url} no está implementada`)
+})
+
+app.listen(PORT, err => {
+    if (!err)  logger.info(`🔥Servidor express escuchando el puerto ${PORT} - PID WORKER ${process.id}🔥`) //desafio 16 logger
+    // console.log(`🔥Servidor express escuchando el puerto ${PORT} - PID WORKER ${process.id}🔥`)
+})
