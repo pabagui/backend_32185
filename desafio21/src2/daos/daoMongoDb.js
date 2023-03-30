@@ -22,4 +22,14 @@ export class DaoMongoDb {
         if (result.modifiedCount === 0) throw new Error(id)
         return dto
     }
+
+    async borrarPorId(id) {
+        const dto = await this.#usuariosDb.deleteOne({ id })
+        if (!dto) throw new ErrorIdNoEncontrado(id)
+        return dto
+    }
+
+    async borrarTodos() {
+        await this.#usuariosDb.deleteMany({})
+    }
 }

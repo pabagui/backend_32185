@@ -17,7 +17,7 @@ async function main( {
 })
  */   
 
-const server = app.listen(PORT, () => { console.log(`🔥escuchando en puerto ${PORT}🔥`) })
+// const server = app.listen(PORT, () => { console.log(`🔥escuchando en puerto ${PORT}🔥`) })
 /*
 async function main() {
     try {
@@ -28,4 +28,27 @@ async function main() {
     }
 }
 */
+
+let server
+
+// const server = app.listen(PORT, () => { console.log(`🔥escuchando en puerto ${PORT}🔥`) })
+
+export function conectar(PORT) {
+    return new Promise((resolve, reject) => {
+        server = app.listen(PORT, () => {
+            console.log(`🔥escuchando en puerto ${PORT}🔥`)
+            resolve(true)
+        })
+    })
+}
+
+export function desconectar(PORT) {
+    return new Promise((resolve, reject) => {
+        server.close(err => {
+            // console.log(`desconectado!`)
+            resolve(true)
+        })
+    })
+}
+
 main()
