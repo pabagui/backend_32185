@@ -1,4 +1,4 @@
-ejecutar app en src/index.js
+ejecutar app en src2/main.js
 
 
 0. PARA DESAFIO 15
