@@ -1,0 +1,54 @@
+mutation {
+  createProducto(datos: {
+    name: "alforja",
+    stock: 35
+    precio: 55000
+    ) {
+    id
+  }
+}
+
+# mutation { createProducto(datos: { name: \"alforja\", stock: 36, precio: 56000 }) { id }}
+
+query {
+  getProductos {
+    id
+    name
+    stock
+    precio
+  }
+}
+
+# query { getProducto { id name stock precio }}
+
+query { 
+  getProductos(campo: "stock", valor: "34") {
+    id
+    name
+    stock
+    precio
+  }
+}
+
+# query { getProductos(campo: \"stock\", valor: \"34\") { id name stock price }}
+
+mutation {
+  updateProducto(id: "xxxxxxxxxxxxx", datos: {
+    name: "mochila",
+    stock: 33
+  }) {
+    id
+    name
+    stock
+    precio
+  }
+}
+
+mutation {
+  deleteProducto(id: "xxxxxxxxxxxxx") {
+    id
+    name
+    stock
+    precio
+  }
+}
