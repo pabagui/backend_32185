@@ -23,6 +23,12 @@
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
 
+## TEST API WITH TUNDERCLIENT
+
+localhost:3000/productos
+usar patch en vez de put
+
+
 ## Documentation
 
 localhost:3000/api (swagger)
