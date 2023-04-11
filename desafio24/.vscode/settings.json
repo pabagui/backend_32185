@@ -2,8 +2,9 @@
     "deno.enable": true,
     "deno.lint": true,
     "deno.unstable": true,
-    "deno.path": "/home/Usuario/.deno/bin/deno",
+    "deno.path": "/Users/Usuario/.deno/bin/deno",
     "deno.suggest.imports.hosts": {
         "https://deno.land": true
     }
 }
+
