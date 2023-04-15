@@ -1,5 +1,6 @@
 import express from 'express'
-import multer from 'multer'
+// import multer from 'multer'
+import { apiRouter } from './routers/routerImagen.js'
 // const multer = require ('multer')
 
 const app = express()
@@ -14,6 +15,7 @@ app.use(express.static('public'))
 /* Multer config */
 // const multer = require('multer')
 
+/*
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, './uploads')
@@ -22,15 +24,28 @@ const storage = multer.diskStorage({
     cb(null, `${Date.now()}-${file.originalname}`)
   }
 })
+*/
 
-const upload = multer({ storage: storage })
+// const storage = multer({
+//     dest: dirname((fileURLToPath(import.meta.url)), './uploads')
+// })
 
-const middlewareDeImagenes = upload.single('miArchivo')
+
+// const upload = multer({ storage: storage })
+
+// const middlewareDeImagenes = upload.single('miArchivo')
 // const middlewareDeImagenes = upload.none()
 // const middlewareDeImagenes = upload.array('imagenes', 3)
 /* ------------------------------------------------------ */
 /* Rutas */
 
+
+app.get('/', (req, res) => {
+        res.send('<h1>😃Hola servidor Express para el desafío 5</h1>');
+})
+app.use('/', apiRouter)
+
+/*
 app.post('/api/images', middlewareDeImagenes, (req, res) => {
 //   const file = req.file
   const file = req.body
@@ -45,6 +60,7 @@ app.post('/api/images', middlewareDeImagenes, (req, res) => {
   res.json(`Archivo <b>${file.originalname}</b> subido exitosamente`)
 // console.log(file)
 })
+*/
 
 /* ------------------------------------------------------ */
 /* Server Listen */
