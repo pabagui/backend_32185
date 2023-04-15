@@ -9,7 +9,9 @@ const app = express()
 
 
 app.use(express.urlencoded({ extended: true }))
-app.use(express.static('public'))
+// app.use(express.urlencoded({ extended: false }))
+// app.use(express.static('public'))
+// app.use("/uploads", express.static('uploads'))
 
 /* ------------------------------------------------------ */
 /* Multer config */
@@ -26,9 +28,6 @@ const storage = multer.diskStorage({
 })
 */
 
-// const storage = multer({
-//     dest: dirname((fileURLToPath(import.meta.url)), './uploads')
-// })
 
 
 // const upload = multer({ storage: storage })
@@ -43,7 +42,10 @@ const storage = multer.diskStorage({
 app.get('/', (req, res) => {
         res.send('<h1>😃Hola servidor Express para el desafío 5</h1>');
 })
+
+app.use('/uploads', express.static('uploads'))
 app.use('/', apiRouter)
+
 
 /*
 app.post('/api/images', middlewareDeImagenes, (req, res) => {
