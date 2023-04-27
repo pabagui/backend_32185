@@ -1,0 +1,21 @@
+producto:
+
+{
+  "name": "mochila",
+  "description": "rojo",
+  "price": 55000,
+  "image": "https://i.ibb.co/vh2jnhh/rojo.jpg"
+}
+
+
+
+usuario:
+
+{
+  "email": "pablo@123.com",
+  "password": "coderhouse",
+  "name": "pablo",
+  "lastname": "aguila",
+  "image": "https://i.ibb.co/vh2jnhh/rojo.jpg",
+  "role": "admin"
+}

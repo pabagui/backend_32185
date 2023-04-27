@@ -41,19 +41,19 @@ export const uploadFileController = (req, res) => {
 */
 
     export const uploadFileController = (req, res) => {  
-    //   const file = req.file   
+      const file = req.file   
     //   const file = req.body   
         // if (!file) {
-        if (req.file === undefined) {   
+        if (file === undefined) {   
             res.status(400)
             return res.json({ error: false, msg: "Error subiendo archivo"})
         } else {
-         const url = req.protocol + "://" + req.get("host") + "/uploads/" + req.file.filename
+         const url = req.protocol + "://" + req.get("host") + "/uploads/" + file.filename
         //  const url = req.body.filename
         //  const url = req.file.filename
          res.status(200)
         //  return res.json({error: false, msg: `Archivo ${file.originalname} cargado exitosamente`, imgUrl: url})  
-         return res.json({error: false, msg: `Archivo ${req.file.originalname} cargado exitosamente`, imgUrl: url})        
+         return res.json({error: false, msg: `Archivo ${file.originalname} cargado exitosamente`, imgUrl: url})        
         }    
 
 /*
@@ -89,3 +89,10 @@ if (!file) {
 res.json(`Archivo <b>${file.originalname}</b> subido exitosamente`)
 // console.log(file)
 */
+
+export const getImageController = (req, res) => {  
+    const url = req.protocol + "://" + req.get("host") + "/uploads"
+       res.status(200)
+      
+       return res.json({error: false, uploadsUrl: url})        
+      }    

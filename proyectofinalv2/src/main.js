@@ -1,73 +1,51 @@
 import express from 'express'
-// import multer from 'multer'
-import { apiRouter } from './routers/routerImagen.js'
-// const multer = require ('multer')
+
+import { routerApiProducts } from './routers/routerProductos.js'
+import { routerApiImages } from './routers/routerImagen.js'
+import { routerApiCarts } from './routers/routerCarritos.js'
+import { routerApiUsers } from './routers/routerUsuarios.js'
 
 const app = express()
 
 
+/* Middlewares */
 
-
+app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-// app.use(express.urlencoded({ extended: false }))
-// app.use(express.static('public'))
-// app.use("/uploads", express.static('uploads'))
-
-/* ------------------------------------------------------ */
-/* Multer config */
-// const multer = require('multer')
-
-/*
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './uploads')
-  },
-  filename: function (req, file, cb) {
-    cb(null, `${Date.now()}-${file.originalname}`)
-  }
-})
-*/
+app.use('/uploads', express.static('uploads'))
+app.use(express.static('uploads'))
 
 
-
-// const upload = multer({ storage: storage })
-
-// const middlewareDeImagenes = upload.single('miArchivo')
-// const middlewareDeImagenes = upload.none()
-// const middlewareDeImagenes = upload.array('imagenes', 3)
-/* ------------------------------------------------------ */
 /* Rutas */
-
 
 app.get('/', (req, res) => {
         res.send('<h1>😃Hola servidor Express para el desafío 5</h1>');
 })
 
-app.use('/uploads', express.static('uploads'))
-app.use('/', apiRouter)
+
+app.use('/', routerApiProducts)
+app.use('/', routerApiCarts)
+app.use('/', routerApiUsers)
 
 
-/*
-app.post('/api/images', middlewareDeImagenes, (req, res) => {
-//   const file = req.file
-  const file = req.body
 
-  if (!file) {
-    res.status(400)
-    // return res.send('Error subiendo archivo')
-    return res.json('Error subiendo archivo')
 
-  }
-//   res.send(`Archivo <b>${file.originalname}</b> subido exitosamente`)
-  res.json(`Archivo <b>${file.originalname}</b> subido exitosamente`)
-// console.log(file)
+app.use('/', routerApiImages)
+app.use('/api/images', express.static('uploads'))
+
+
+
+app.all('*', (req, res) => {
+  res.status(404).json('ruta no implementada')
 })
-*/
 
-/* ------------------------------------------------------ */
+
+
+
 /* Server Listen */
+
 const PORT = 8080
 const server = app.listen(PORT, () => {
-  console.log(`Servidor escuchando en el puerto ${server.address().port}`)
+  console.log(`🔥Servidor escuchando en el puerto ${server.address().port}🔥`)
 })
 server.on('error', error => console.log(`Error en servidor ${error}`))
