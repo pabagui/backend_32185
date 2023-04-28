@@ -19,3 +19,27 @@ usuario:
   "image": "https://i.ibb.co/vh2jnhh/rojo.jpg",
   "role": "admin"
 }
+
+{
+  "email": "jose@123.com",
+  "password": "coderhouse",
+  "name": "jose",
+  "lastname": "jamon",
+  "image": "https://i.ibb.co/vh2jnhh/rojo.jpg",
+  "role": "none"
+}
+
+
+
+login: 
+
+{
+  "email": "pablo@123.com",
+  "password": "coderhouse"
+}
+
+logout: 
+
+{
+  "email": "pablo@123.com"
+}

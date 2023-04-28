@@ -26,7 +26,9 @@ export class Usuario {
             this.#role = role
         }
 
-        get email() { return this.#email }
+        get email() { 
+            return this.#email 
+        }
 
         asDto() {
             return new UsuarioDto({

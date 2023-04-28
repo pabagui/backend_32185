@@ -5,13 +5,14 @@ import { postProductController,
          updateProductByIdController,
          deleteProductByIdController
         } from '../controllers/controladorProductos.js'
+import { validarAdmin } from '../controllers/controladorAdmin.js'        
 
 export const routerApiProducts = new Router()
 
 
 
-routerApiProducts.post('/api/products',postProductController) //agregar controller adminCheck
+routerApiProducts.post('/api/products', validarAdmin,  postProductController) 
 routerApiProducts.get('/api/products', getProductsController) 
 routerApiProducts.get('/api/products/:id', getProductByIdController)
-routerApiProducts.put('/api/products/:id', updateProductByIdController) //agregar controller adminCheck
-routerApiProducts.delete('/api/products/:id', deleteProductByIdController ) //agregar controller adminCheck
+routerApiProducts.put('/api/products/:id', validarAdmin, updateProductByIdController) 
+routerApiProducts.delete('/api/products/:id', validarAdmin, deleteProductByIdController ) 

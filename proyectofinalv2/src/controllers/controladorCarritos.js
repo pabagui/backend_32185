@@ -2,13 +2,6 @@ import { logger } from '../../config/logger.js'
 import { buscar, actualizarCarrito} from '../daos/mongodbDao.js'
 
 
-// postProductToCartController,
-// getProductsInCartController,
-// deleteProductByIdInCartController
-
-
-
-
 
 export async function postProductToCartController(req, res) {
     const {productId} = req.body
@@ -72,7 +65,7 @@ export async function getProductsInCartController(req, res) {
         }
     })
     .catch(err => {
-        logger.error(`Error al buscar el carrito: ${err}`)
+        logger.error(`Error al buscar productos en carrito: ${err}`)
         res.status(500);
         res.json({message: err})
     })

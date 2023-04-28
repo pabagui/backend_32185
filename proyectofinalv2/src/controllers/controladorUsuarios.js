@@ -74,3 +74,13 @@ export async function logoutController(req, res) {
     }
 }
 
+
+export async function authenticationMiddleware(req, res, next){
+    if(req.isAuthenticated()){
+        next();
+    } else {
+        res.status(500)
+        logger.error(`Usuario no autenticado`)
+        res.json('Usuario no autenticado')
+    }
+}

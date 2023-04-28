@@ -1,10 +1,10 @@
 import { Router } from 'express';
-import { postUserController, getUserController, loginController, logoutController } from '../controllers/controladorUsuarios.js'
+import { postUserController, getUserController, loginController, logoutController, authenticationMiddleware } from '../controllers/controladorUsuarios.js'
 import passport from 'passport'
 import { Strategy as LocalStrategy } from 'passport-local'
 import { desencriptador } from '../jwt/jwt.js';
 import { logger } from '../../config/logger.js';
-import { authenticationMiddleware } from '../middlewares/middlewareAutenticacion.js'
+// import { authenticationMiddleware } from '../middlewares/middlewareAutenticacion.js'
 
 
 passport.use('login', new LocalStrategy(

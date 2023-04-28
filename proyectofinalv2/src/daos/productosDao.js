@@ -18,8 +18,8 @@ export class ProductosDao {
         return dto
     }
 
-    async buscarPorId(id) {
-        const dto = await this.#productosDb.findOne({id})
+    async buscarPorId(_id) {
+        const dto = await this.#productosDb.findOne({_id})
         return dto
     }
 
